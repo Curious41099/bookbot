@@ -4,19 +4,18 @@ def main():
     text = get_book_text(book_path)
     number_of_words = get_count_words(text)
     letters_dict = get_count_letters(text)
-    sorted_chars_list = char_dict_to_sorted_list(letters_dict)
 
+    #  open and read the file
+    with open(book_path, 'r') as file:
+        text = file.read().lower()
 
-    print(f"--- Begin report of {book_path} ---")
-    print(f"{number_of_words} words found in the document")
-    print()
+    word_count = len(text.split())
 
-    for item in sorted_chars_list:
-        if not item["char"].isalpha():
-            continue
-        print(f"The '{item['char']}' character was found {item['num']} times")
+    # Get character counts using the count_chars function
+    char_dict = count_chars(text)
 
-    print("--- End Report ---")
+    # Print the report using the print_report function
+    print_report(char_dict,word_count)
 
 
     
@@ -44,16 +43,24 @@ def get_count_letters(text):
             letters[small_letter] = 1
     return letters 
 
-def sort_on(d):
-    return d["num"]
+#  function to count each character alphabet in a text.
+def count_chars(text):
+    char_dict = {}
+    for char in text:
+        if char.isalpha():
+            if char in char_dict:
+                char_dict[char] += 1
+            else:
+                char_dict[char] = 1
+    return char_dict
 
-def char_dict_to_sorted_list(num_chars_dict):
-    sorted_list = []
-    for ch in num_chars_dict:
-        sorted_list.append({"char": ch, "num": num_chars_dict[ch]})
-    sorted_list.sort(reverse=True, key=sort_on)
-    return sorted_list
+#  function to print the sorted character counts
+def print_report(char_dict,word_count):
+    sorted_chars = sorted(char_dict.items(),key=lambda x: x[1], reverse=True)
 
+    print(f"Total words found: {word_count}")
+    for char,count in sorted_chars:
+        print(f"'{char}' character was found {count} times")
 
 
 
