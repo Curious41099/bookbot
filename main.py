@@ -43,7 +43,7 @@ def get_count_letters(text):
             letters[small_letter] = 1
     return letters 
 
-#  function to count each character alphabet in a text.
+# Counts each alphabet character in a given text and returns a dictionary with characters as keys and counts as values.
 def count_chars(text):
     char_dict = {}
     for char in text:
@@ -54,7 +54,8 @@ def count_chars(text):
                 char_dict[char] = 1
     return char_dict
 
-#  function to print the sorted character counts
+# Takes a dictionary of character counts and a total word count, 
+# sorts the characters based on their counts, and prints the report.
 def print_report(char_dict,word_count):
     sorted_chars = sorted(char_dict.items(),key=lambda x: x[1], reverse=True)
 
