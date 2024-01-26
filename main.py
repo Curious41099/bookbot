@@ -17,12 +17,6 @@ def main():
     # Print the report using the print_report function
     print_report(char_dict,word_count)
 
-
-    
-
-
-
-
 def get_book_text(path):
     with open(path) as f:
         file_contents = f.read()
