@@ -66,10 +66,10 @@
 
 #initializing the main function.
 def main():
-    # Setting book path
+    # Defining the path of the book file
     book_path = "books/frankenstein.txt"
     
-    # Calling function to extract text from book
+    # Calling function to read the book using path, store and return its content as a string
     text_content = extract_book_text(book_path)
     
     # Gathering count of words in book
@@ -78,29 +78,30 @@ def main():
     # Calculating frequency of each letter in book
     letter_frequency = calculate_letter_frequency(text_content)
 
-    # Open and read the file
+    # Open and read the file, 
+    # converting to lower case and storing the string
     with open(book_path, 'r') as book_file:
         text_content = book_file.read().lower()
-
+    # Splitting the string into individual words and storing the count of words
     total_words = len(text_content.split())
 
-    # Calculating frequency of each character in book
+    # Calculating frequency of each character in book text and return a dictionary recording the frequencies
     char_frequency = calculate_character_frequency(text_content)
-
-    # Displaying frequency report
+    # Calling function to print the statistics (frequency count report of characters and total words)
     display_frequency_report(char_frequency, total_words)
 
-# Function to read and return book contents
+# Function to open a book file, read its contents and return the content as a string
 def extract_book_text(path):
     with open(path) as f:
         return f.read()
 
-# Function to calculate number of words in a text
+# Function to split a string into words based on space, count the words and return the count
 def calculate_word_count(text_content):
     words = text_content.split()
     return len(words)
 
-# Function to calculate frequency of each letter in a text
+# Function to iterate over a string (book text), 
+# calculate the frequency of each individual lowercased letter and return a dictionary recording their frequencies
 def calculate_letter_frequency(text_content):
     letters_frequency = {}
     for letter in text_content:
@@ -111,7 +112,8 @@ def calculate_letter_frequency(text_content):
             letters_frequency[small_letter] = 1
     return letters_frequency 
 
-# Function to calculate frequency of each character in a text
+# Similar to calculate_letter_frequency, 
+# but only takes characters that are alphabets into account
 def calculate_character_frequency(text_content):
     char_frequency = {}
     for letter in text_content:
@@ -122,11 +124,15 @@ def calculate_character_frequency(text_content):
                 char_frequency[letter] = 1
     return char_frequency
 
-# Function to generate and display frequency count report
+# Function to generate an ordered list of character frequencies, 
+# display the number of words, 
+# and the times each character has appeared 
 def display_frequency_report(char_frequency, total_words):
     sorted_characters = sorted(char_frequency.items(),key=lambda x: x[1], reverse=True)
 
+    # Print the total number of words found
     print(f"Total words found: {total_words}")
+    # Print the frequency of each character
     for char, count in sorted_characters:
         print(f"'{char}' character was found {count} times")
 
